@@ -1,0 +1,8 @@
+{
+  "name": "Ezplan Playbook Teman Persiapan Kehamilan",
+  "description": "Panduan Praktis dari Awal Kehamilan hingga Menyambut Si Kecil",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
