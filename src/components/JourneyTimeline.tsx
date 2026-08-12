@@ -40,10 +40,10 @@ export const JourneyTimeline: React.FC<JourneyTimelineProps> = ({ onNavigate }) 
             >
               <div className="space-y-4">
                 {/* Stage Number & Period Header */}
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F0E4E4] pb-3">
+                  <div className="flex items-center gap-2 shrink-0">
                     <span 
-                      className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-black text-white shadow-2xs shrink-0"
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-black text-white shadow-2xs shrink-0"
                       style={{ backgroundColor: stage.accentColor }}
                     >
                       {stage.stageNumber}
@@ -53,18 +53,18 @@ export const JourneyTimeline: React.FC<JourneyTimelineProps> = ({ onNavigate }) 
                     </span>
                   </div>
 
-                  <span className="text-xs font-black text-[#1A1112] bg-[#F8F0E5] px-3 py-1 rounded-full flex items-center gap-1.5 border border-[#EADDDD] shrink-0">
+                  <span className="text-[11px] sm:text-xs font-black text-[#1A1112] bg-[#F8F0E5] px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1.5 border border-[#EADDDD] max-w-full">
                     <Clock className="w-3.5 h-3.5 text-[#B9626D] shrink-0" />
-                    <span>{stage.period}</span>
+                    <span className="break-words leading-tight">{stage.period}</span>
                   </span>
                 </div>
 
                 {/* Stage Title & Subtitle */}
-                <div className="space-y-1">
+                <div className="space-y-1 pt-1">
                   <h3 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112] group-hover:text-[#B9626D] transition-colors leading-snug">
                     {stage.title}
                   </h3>
-                  <p className="text-xs font-extrabold italic text-[#B9626D]">
+                  <p className="text-xs font-bold text-[#B9626D]">
                     “{stage.subtitle}”
                   </p>
                 </div>

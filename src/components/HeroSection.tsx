@@ -29,9 +29,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             </div>
 
             {/* Headline */}
-            <h1 className="ad-title text-4xl sm:text-5xl lg:text-6xl font-black text-[#1A1112] leading-[1.12] tracking-tight">
+            <h1 className="ad-title text-3xl sm:text-5xl lg:text-6xl font-black text-[#1A1112] leading-[1.15] tracking-tight">
               Lebih Siap Menjalani <br className="hidden sm:inline" />
-              <span className="font-serif-accent italic font-black text-[#9B414C]">Perjalanan Menuju</span> <br className="hidden sm:inline" />
+              <span className="text-[#9B414C] font-black">Perjalanan Menuju</span> <br className="hidden sm:inline" />
               Hari Kelahiran Si Kecil
             </h1>
 

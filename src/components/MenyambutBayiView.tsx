@@ -57,7 +57,7 @@ export const MenyambutBayiView: React.FC<MenyambutBayiViewProps> = ({ onNavigate
             <BabyOnesieIcon className="w-8 h-8 text-[#9B414C]" />
           </h1>
 
-          <p className="text-sm font-extrabold italic text-[#9B414C]">
+          <p className="text-sm font-bold text-[#9B414C]">
             “{MENYAMBUT_BAYI_DATA.subtitle}”
           </p>
 
