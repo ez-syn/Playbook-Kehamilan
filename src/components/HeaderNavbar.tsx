@@ -15,13 +15,15 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { BabyFaceIcon } from './BabyIllustrations';
+import { LogOut } from 'lucide-react';
 
 interface HeaderNavbarProps {
   activePage: PageView;
   onNavigate: (page: PageView) => void;
+  onLogout?: () => void;
 }
 
-export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNavigate }) => {
+export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNavigate, onLogout }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [stageDropdownOpen, setStageDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -228,6 +230,18 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
               <Info className={`w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 ${activePage === 'about' ? 'text-white' : 'text-[#776B6D]'}`} />
               <span>Tentang</span>
             </button>
+
+            {onLogout && (
+              <button
+                id="desktop-nav-logout"
+                onClick={onLogout}
+                className="px-1.5 xl:px-2 py-1.5 rounded-full text-[10px] xl:text-xs font-bold text-[#9B414C] hover:bg-[#FFF0F2] transition-colors flex items-center gap-1 border border-transparent hover:border-[#F8D2D6]"
+                title="Keluar dari akun"
+              >
+                <LogOut className="w-3 h-3 text-[#9B414C]" />
+                <span>Keluar</span>
+              </button>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -325,6 +339,20 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
                 <span>{item.label}</span>
               </button>
             ))}
+
+            {onLogout && (
+              <button
+                id="mobile-drawer-logout"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onLogout();
+                }}
+                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#9B414C] bg-[#FFF0F2] border border-[#F8D2D6] hover:bg-[#9B414C] hover:text-white transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Keluar Akun</span>
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageView, CategoryId } from './types';
+import { LoginView } from './components/LoginView';
 import { HeaderNavbar } from './components/HeaderNavbar';
 import { BottomNav } from './components/BottomNav';
 import { HeroSection } from './components/HeroSection';
@@ -16,8 +17,22 @@ import { Footer } from './components/Footer';
 import { ShieldAlert, BookOpen, Compass, ArrowRight } from 'lucide-react';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return localStorage.getItem('ezplan_authenticated') === 'true';
+  });
   const [activePage, setActivePage] = useState<PageView>('home');
   const [selectedTopicCategory, setSelectedTopicCategory] = useState<CategoryId>('tas-persalinan');
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem('ezplan_authenticated', 'true');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('ezplan_authenticated');
+    setActivePage('home');
+  };
 
   const handleNavigate = (page: PageView) => {
     setActivePage(page);
@@ -28,11 +43,19 @@ export default function App() {
     setActivePage('category');
   };
 
+  if (!isAuthenticated) {
+    return <LoginView onLoginSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#FFF9F6] text-[#3D3435] flex flex-col font-sans selection:bg-[#F8E3E5] selection:text-[#B9626D]">
       
       {/* Header Navigation */}
-      <HeaderNavbar activePage={activePage} onNavigate={handleNavigate} />
+      <HeaderNavbar 
+        activePage={activePage} 
+        onNavigate={handleNavigate} 
+        onLogout={handleLogout}
+      />
 
       {/* Main Page Router */}
       <main className="flex-1">
