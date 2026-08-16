@@ -151,12 +151,23 @@ export const MenyambutBayiView: React.FC<MenyambutBayiViewProps> = ({ onNavigate
           </p>
           <div className="pt-2 flex flex-wrap justify-center gap-3">
             <button
+              id="menyambut-to-menjelang-btn"
+              onClick={() => {
+                onNavigate('menjelang');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="px-5 py-3 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs sm:text-sm font-extrabold hover:bg-[#F8E3E5]/40 transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>← Menjelang Persalinan</span>
+            </button>
+
+            <button
               id="menyambut-to-dictionary-btn"
               onClick={() => {
                 onNavigate('dictionary');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 rounded-full bg-[#B9626D] text-white text-xs sm:text-sm font-extrabold hover:bg-[#A34E59] transition-colors shadow-xs"
+              className="px-6 py-3 rounded-full bg-[#B9626D] text-white text-xs sm:text-sm font-extrabold hover:bg-[#A34E59] transition-colors shadow-xs cursor-pointer active:scale-95"
             >
               Jelajahi Kamus Kehamilan
             </button>
@@ -167,7 +178,7 @@ export const MenyambutBayiView: React.FC<MenyambutBayiViewProps> = ({ onNavigate
                 onNavigate('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-6 py-3 rounded-full bg-[#FFF9F6] text-[#1A1112] border-2 border-[#EADDDD] text-xs sm:text-sm font-extrabold hover:bg-[#F8E3E5]/50 transition-colors"
+              className="px-6 py-3 rounded-full bg-[#FFF9F6] text-[#1A1112] border-2 border-[#EADDDD] text-xs sm:text-sm font-extrabold hover:bg-[#F8E3E5]/50 transition-colors cursor-pointer"
             >
               Kembali ke Beranda
             </button>

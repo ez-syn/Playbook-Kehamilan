@@ -202,7 +202,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
               }`}
             >
               <Sparkles className={`w-2.5 h-2.5 xl:w-3.5 xl:h-3.5 ${activePage === 'affirmation' ? 'text-white' : 'text-[#B9626D]'}`} />
-              <span>Afirmasi</span>
+              <span>Afirmasi & Ide Obrolan</span>
             </button>
 
             <button
@@ -271,7 +271,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
               { id: 'journey' as PageView, label: 'Perjalanan', icon: <Compass className="w-4 h-4" /> },
               { id: 'category' as PageView, label: 'Topik Pilihan', icon: <LayoutGrid className="w-4 h-4 text-[#8C633D]" /> },
               { id: 'baby-blues' as PageView, label: 'Mengenal Baby Blues', icon: <Heart className="w-4 h-4 text-[#9B414C] fill-current" /> },
-              { id: 'affirmation' as PageView, label: 'Afirmasi Khusus', icon: <Sparkles className="w-4 h-4" /> },
+              { id: 'affirmation' as PageView, label: 'Afirmasi & Ide Obrolan', icon: <Sparkles className="w-4 h-4" /> },
             ].map((item) => (
               <button
                 key={item.id}

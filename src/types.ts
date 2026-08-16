@@ -53,6 +53,7 @@ export interface Chapter {
     items: string[];
     badgeColor?: string;
   }[];
+  conversationTitle?: string;
   conversationQuestions?: ConversationQuestion[];
 }
 

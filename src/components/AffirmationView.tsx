@@ -8,9 +8,13 @@ import {
   Wind, 
   ArrowLeft,
   Star,
-  Quote
+  Quote,
+  MessageSquare,
+  Flame,
+  Heart
 } from 'lucide-react';
 import { BabyFaceIcon } from './BabyIllustrations';
+import { ChatIdeasView } from './ChatIdeasView';
 
 interface AffirmationViewProps {
   onNavigate: (page: PageView) => void;
@@ -249,6 +253,7 @@ const AFFIRMATION_LIST: AffirmationItem[] = [
 ];
 
 export const AffirmationView: React.FC<AffirmationViewProps> = ({ onNavigate }) => {
+  const [primaryTab, setPrimaryTab] = useState<'afirmasi' | 'obrolan'>('afirmasi');
   const [selectedCategory, setSelectedCategory] = useState<string>('semua');
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -363,267 +368,320 @@ export const AffirmationView: React.FC<AffirmationViewProps> = ({ onNavigate }) 
         </div>
 
         {/* Hero Banner Header */}
-        <div className="bg-[#FFFFFF] p-8 sm:p-12 rounded-3xl border-2 border-[#EADDDD] shadow-xs text-center space-y-4 relative overflow-hidden">
+        <div className="bg-[#FFFFFF] p-8 sm:p-10 rounded-3xl border-2 border-[#EADDDD] shadow-xs text-center space-y-5 relative overflow-hidden">
           <div className="w-16 h-16 rounded-full bg-[#B9626D] text-white mx-auto flex items-center justify-center shadow-xs border-2 border-[#EADDDD]">
             <BabyFaceIcon className="w-10 h-10 text-white" />
           </div>
 
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F8E3E5] text-[#9B414C] text-xs font-black uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-[#B9626D]" />
-              <span>AFIRMASI KHUSUS MENYENTUH HATI</span>
+              {primaryTab === 'afirmasi' ? (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-[#B9626D]" />
+                  <span>AFIRMASI KHUSUS MENYENTUH HATI</span>
+                </>
+              ) : (
+                <>
+                  <Flame className="w-3.5 h-3.5 text-[#B9626D]" />
+                  <span>IDE OBROLAN PASANGAN & KELUARGA</span>
+                </>
+              )}
             </div>
             <h1 className="ad-title text-3xl sm:text-4xl md:text-5xl font-black text-[#1A1112]">
-              Ruang Afirmasi & Kedamaian
+              {primaryTab === 'afirmasi' ? 'Ruang Afirmasi & Kedamaian' : 'Ide Obrolan Pasangan (Anti-Baper)'}
             </h1>
             <p className="text-sm sm:text-base text-[#776B6D] max-w-xl mx-auto font-medium leading-relaxed">
-              Kata-kata lembut penguat jiwa untuk menemani setiap detak langkah persiapan menjadi orang tua yang tenang dan bahagia.
+              {primaryTab === 'afirmasi' 
+                ? 'Kata-kata lembut penguat jiwa untuk menemani setiap detak langkah persiapan menjadi orang tua yang tenang dan bahagia.'
+                : 'Topik-topik sensitif yang sering terlewat dari promil sampai pasca melahirkan: aturan jenguk mertua, baby blues, hingga pembagian tugas tanpa drama.'}
             </p>
           </div>
-        </div>
 
-        {/* Featured Card of the Day */}
-        <div className="bg-gradient-to-br from-[#FFF5F6] via-[#FFFFFF] to-[#FCEFD2]/40 p-6 sm:p-10 rounded-3xl border-2 border-[#EADDDD] shadow-sm relative overflow-hidden space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="p-2 rounded-xl bg-[#B9626D] text-white">
-                <Quote className="w-5 h-5" />
-              </span>
-              <div>
-                <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#9B414C]">
-                  KARTU AFIRMASI PILIHAN
-                </span>
-                <h2 className="text-base font-bold text-[#1A1112]">
-                  Renungan Hari Ini
-                </h2>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
+          {/* Primary View Switcher Tabs (Afirmasi vs Ide Obrolan) */}
+          <div className="pt-2 flex justify-center">
+            <div className="inline-flex p-1.5 rounded-full bg-[#FFF0F2] border-2 border-[#EADDDD] gap-1 shadow-2xs">
               <button
-                onClick={() => toggleFavorite(featured.id)}
-                className={`p-2.5 rounded-full border transition-all ${
-                  favorites.includes(featured.id)
-                    ? 'bg-[#B9626D] text-white border-[#B9626D]'
-                    : 'bg-white text-[#776B6D] border-[#EADDDD] hover:bg-[#F8E3E5]'
+                id="tab-afirmasi-btn"
+                onClick={() => setPrimaryTab('afirmasi')}
+                className={`px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all flex items-center gap-2 cursor-pointer ${
+                  primaryTab === 'afirmasi'
+                    ? 'bg-[#B9626D] text-white shadow-sm'
+                    : 'text-[#524446] hover:text-[#1A1112] hover:bg-white/60'
                 }`}
-                title="Simpan ke favorit"
               >
-                <Star className={`w-4 h-4 ${favorites.includes(featured.id) ? 'fill-current' : ''}`} />
+                <Sparkles className="w-4 h-4" />
+                <span>Kartu Afirmasi</span>
               </button>
 
               <button
-                onClick={handleNextFeatured}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white text-[#9B414C] border border-[#EADDDD] text-xs font-bold hover:bg-[#F8E3E5] transition-colors shadow-2xs"
+                id="tab-obrolan-btn"
+                onClick={() => setPrimaryTab('obrolan')}
+                className={`px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all flex items-center gap-2 cursor-pointer ${
+                  primaryTab === 'obrolan'
+                    ? 'bg-[#B9626D] text-white shadow-sm'
+                    : 'text-[#524446] hover:text-[#1A1112] hover:bg-white/60'
+                }`}
               >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Acak Afirmasi</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="py-4 space-y-4">
-            <p className="font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#2C1819] font-black leading-relaxed text-center sm:text-left tracking-wide">
-              “{featured.quote}”
-            </p>
-
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#EADDDD]/60 text-xs">
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full font-bold" style={{ backgroundColor: featured.accentBg, color: featured.textColor }}>
-                  {featured.categoryLabel}
+                <MessageSquare className="w-4 h-4" />
+                <span>Ide Obrolan</span>
+                <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded-full bg-[#9B414C] text-white hidden sm:inline-block">
+                  Penting
                 </span>
-                <span className="text-[#776B6D] font-medium hidden sm:inline">
-                  • {featured.context}
-                </span>
-              </div>
-
-              <button
-                onClick={() => handleCopy(featured.id, featured.quote)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B9626D] hover:underline ml-auto"
-              >
-                {copiedId === featured.id ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-green-600" />
-                    <span className="text-green-600">Tersalin ke Clipboard!</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-3.5 h-3.5" />
-                    <span>Salin Pesan Inspirasi</span>
-                  </>
-                )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Guided Breathing / 1-Minute Relaxation Widget */}
-        <div className="bg-[#E7EFE4]/60 p-6 sm:p-8 rounded-3xl border-2 border-[#D2E4CE] grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-          <div className="md:col-span-7 space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#3D5C37] text-white text-[10px] font-black tracking-wider uppercase">
-              <Wind className="w-3.5 h-3.5" />
-              <span>Sesi Ketenangan 1 Menit</span>
-            </div>
-            <h3 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">
-              Latihan Pernapasan Lembut
-            </h3>
-            <p className="text-xs sm:text-sm text-[#3D5C37] font-medium leading-relaxed">
-              Luangkan sejenak untuk melambatkan detak jantung dan menenangkan pikiran saat membaca afirmasi.
-            </p>
-          </div>
-
-          <div className="md:col-span-5 bg-white p-6 rounded-2xl border border-[#D2E4CE] text-center space-y-4 shadow-2xs">
-            {isBreathing ? (
-              <div className="space-y-3">
-                <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-                  <div className={`absolute inset-0 rounded-full bg-[#E7EFE4] transition-all duration-1000 ${
-                    breathPhase === 'tarik' ? 'scale-125 opacity-80' : breathPhase === 'tahan' ? 'scale-125 opacity-100' : 'scale-90 opacity-40'
-                  }`} />
-                  <div className="relative z-10 text-center">
-                    <span className="block text-2xl font-black text-[#3D5C37]">{breathTimer}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D5C37]">
-                      {breathPhase === 'tarik' ? 'Tarik Napas' : breathPhase === 'tahan' ? 'Tahan' : 'Hembuskan'}
+        {/* Content based on primary tab */}
+        {primaryTab === 'obrolan' ? (
+          <ChatIdeasView />
+        ) : (
+          <div className="space-y-8 animate-fadeIn">
+            {/* Featured Card of the Day */}
+            <div className="bg-gradient-to-br from-[#FFF5F6] via-[#FFFFFF] to-[#FCEFD2]/40 p-6 sm:p-10 rounded-3xl border-2 border-[#EADDDD] shadow-sm relative overflow-hidden space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="p-2 rounded-xl bg-[#B9626D] text-white">
+                    <Quote className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#9B414C]">
+                      KARTU AFIRMASI PILIHAN
                     </span>
+                    <h2 className="text-base font-bold text-[#1A1112]">
+                      Renungan Hari Ini
+                    </h2>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setIsBreathing(false)}
-                  className="px-4 py-1.5 rounded-full bg-[#3D5C37] text-white text-xs font-bold hover:bg-[#2e472a] transition-colors"
-                >
-                  Selesai Sesi
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => toggleFavorite(featured.id)}
+                    className={`p-2.5 rounded-full border transition-all cursor-pointer ${
+                      favorites.includes(featured.id)
+                        ? 'bg-[#B9626D] text-white border-[#B9626D]'
+                        : 'bg-white text-[#776B6D] border-[#EADDDD] hover:bg-[#F8E3E5]'
+                    }`}
+                    title="Simpan ke favorit"
+                  >
+                    <Star className={`w-4 h-4 ${favorites.includes(featured.id) ? 'fill-current' : ''}`} />
+                  </button>
+
+                  <button
+                    onClick={handleNextFeatured}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white text-[#9B414C] border border-[#EADDDD] text-xs font-bold hover:bg-[#F8E3E5] transition-colors shadow-2xs cursor-pointer"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Acak Afirmasi</span>
+                  </button>
+                </div>
               </div>
-            ) : (
-              <div className="space-y-3">
-                <p className="text-xs text-[#776B6D] font-medium">
-                  Tekan tombol di bawah untuk memulai siklus pernapasan terpandu.
+
+              <div className="py-4 space-y-4">
+                <p className="font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#2C1819] font-black leading-relaxed text-center sm:text-left tracking-wide">
+                  “{featured.quote}”
                 </p>
-                <button
-                  onClick={() => setIsBreathing(true)}
-                  className="w-full py-2.5 rounded-full bg-[#3D5C37] text-white text-xs font-bold hover:bg-[#2e472a] transition-colors shadow-2xs flex items-center justify-center gap-2"
-                >
-                  <Wind className="w-4 h-4" />
-                  <span>Mulai Pernapasan Terpandu</span>
-                </button>
+
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#EADDDD]/60 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full font-bold" style={{ backgroundColor: featured.accentBg, color: featured.textColor }}>
+                      {featured.categoryLabel}
+                    </span>
+                    <span className="text-[#776B6D] font-medium hidden sm:inline">
+                      • {featured.context}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => handleCopy(featured.id, featured.quote)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B9626D] hover:underline ml-auto cursor-pointer"
+                  >
+                    {copiedId === featured.id ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-600" />
+                        <span className="text-green-600">Tersalin ke Clipboard!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Share2 className="w-3.5 h-3.5" />
+                        <span>Salin Pesan Inspirasi</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        {/* Category Navigation Tabs */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">
-              Kumpulan Kartu Afirmasi
-            </h2>
-            <span className="text-xs font-bold text-[#776B6D]">
-              {filteredAffirmations.length} Afirmasi
-            </span>
-          </div>
+            {/* Guided Breathing / 1-Minute Relaxation Widget */}
+            <div className="bg-[#E7EFE4]/60 p-6 sm:p-8 rounded-3xl border-2 border-[#D2E4CE] grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              <div className="md:col-span-7 space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#3D5C37] text-white text-[10px] font-black tracking-wider uppercase">
+                  <Wind className="w-3.5 h-3.5" />
+                  <span>Sesi Ketenangan 1 Menit</span>
+                </div>
+                <h3 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">
+                  Latihan Pernapasan Lembut
+                </h3>
+                <p className="text-xs sm:text-sm text-[#3D5C37] font-medium leading-relaxed">
+                  Luangkan sejenak untuk melambatkan detak jantung dan menenangkan pikiran saat membaca afirmasi.
+                </p>
+              </div>
 
-          <div className="flex flex-wrap items-center gap-2 pb-2">
-            {[
-              { id: 'semua', label: 'Semua Afirmasi' },
-              { id: 'favorit', label: `Tersimpan (${favorites.length})` },
-              { id: 'ibu', label: 'Calon Ibu' },
-              { id: 'ayah', label: 'Calon Ayah' },
-              { id: 'ketenangan', label: 'Ketenangan Hati' },
-              { id: 'pasangan', label: 'Cinta Pasangan' },
-              { id: 'menyambut', label: 'Menyambut Bayi' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedCategory(tab.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all border ${
-                  selectedCategory === tab.id
-                    ? 'bg-[#B9626D] text-white border-[#B9626D] shadow-xs'
-                    : 'bg-white text-[#524446] border-[#EADDDD] hover:bg-[#F8E3E5]/60 hover:text-[#9B414C]'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Grid of Affirmations */}
-        {filteredAffirmations.length === 0 ? (
-          <div className="bg-white p-12 rounded-3xl border-2 border-dashed border-[#EADDDD] text-center space-y-3">
-            <Star className="w-10 h-10 text-[#EADDDD] mx-auto" />
-            <p className="text-sm font-bold text-[#1A1112]">
-              Belum ada afirmasi tersimpan di kategori ini.
-            </p>
-            <p className="text-xs text-[#776B6D]">
-              Tekan ikon bintang pada kartu untuk menyimpannya ke daftar favorit Anda.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredAffirmations.map((item) => {
-              const isFav = favorites.includes(item.id);
-              return (
-                <div
-                  key={item.id}
-                  className="p-6 sm:p-7 rounded-2xl border transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-                  style={{
-                    backgroundColor: item.bgColor,
-                    borderColor: item.borderColor
-                  }}
-                >
+              <div className="md:col-span-5 bg-white p-6 rounded-2xl border border-[#D2E4CE] text-center space-y-4 shadow-2xs">
+                {isBreathing ? (
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full"
-                        style={{ backgroundColor: item.accentBg, color: item.textColor }}
-                      >
-                        {item.categoryLabel}
-                      </span>
-
-                      <button
-                        onClick={() => toggleFavorite(item.id)}
-                        className={`p-2 rounded-full transition-colors ${
-                          isFav ? 'text-[#B9626D]' : 'text-[#A09092] hover:text-[#B9626D]'
-                        }`}
-                        title={isFav ? "Hapus dari favorit" : "Simpan ke favorit"}
-                      >
-                        <Star className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
-                      </button>
+                    <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+                      <div className={`absolute inset-0 rounded-full bg-[#E7EFE4] transition-all duration-1000 ${
+                        breathPhase === 'tarik' ? 'scale-125 opacity-80' : breathPhase === 'tahan' ? 'scale-125 opacity-100' : 'scale-90 opacity-40'
+                      }`} />
+                      <div className="relative z-10 text-center">
+                        <span className="block text-2xl font-black text-[#3D5C37]">{breathTimer}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#3D5C37]">
+                          {breathPhase === 'tarik' ? 'Tarik Napas' : breathPhase === 'tahan' ? 'Tahan' : 'Hembuskan'}
+                        </span>
+                      </div>
                     </div>
 
-                    <p
-                      className="font-sans text-base sm:text-lg font-extrabold leading-relaxed tracking-wide"
-                      style={{ color: item.textColor }}
-                    >
-                      “{item.quote}”
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-black/5 flex items-center justify-between text-xs">
-                    <span className="text-[#776B6D] font-bold">
-                      {item.author}
-                    </span>
-
                     <button
-                      onClick={() => handleCopy(item.id, item.quote)}
-                      className="inline-flex items-center gap-1 font-bold text-[#B9626D] hover:underline"
+                      onClick={() => setIsBreathing(false)}
+                      className="px-4 py-1.5 rounded-full bg-[#3D5C37] text-white text-xs font-bold hover:bg-[#2e472a] transition-colors cursor-pointer"
                     >
-                      {copiedId === item.id ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-green-600" />
-                          <span className="text-green-600 text-[11px]">Tersalin</span>
-                        </>
-                      ) : (
-                        <>
-                          <Share2 className="w-3.5 h-3.5" />
-                          <span>Bagikan</span>
-                        </>
-                      )}
+                      Selesai Sesi
                     </button>
                   </div>
-                </div>
-              );
-            })}
+                ) : (
+                  <div className="space-y-3">
+                    <p className="text-xs text-[#776B6D] font-medium">
+                      Tekan tombol di bawah untuk memulai siklus pernapasan terpandu.
+                    </p>
+                    <button
+                      onClick={() => setIsBreathing(true)}
+                      className="w-full py-2.5 rounded-full bg-[#3D5C37] text-white text-xs font-bold hover:bg-[#2e472a] transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Wind className="w-4 h-4" />
+                      <span>Mulai Pernapasan Terpandu</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Category Navigation Tabs */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">
+                  Kumpulan Kartu Afirmasi
+                </h2>
+                <span className="text-xs font-bold text-[#776B6D]">
+                  {filteredAffirmations.length} Afirmasi
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pb-2">
+                {[
+                  { id: 'semua', label: 'Semua Afirmasi' },
+                  { id: 'favorit', label: `Tersimpan (${favorites.length})` },
+                  { id: 'ibu', label: 'Calon Ibu' },
+                  { id: 'ayah', label: 'Calon Ayah' },
+                  { id: 'ketenangan', label: 'Ketenangan Hati' },
+                  { id: 'pasangan', label: 'Cinta Pasangan' },
+                  { id: 'menyambut', label: 'Menyambut Bayi' },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setSelectedCategory(tab.id)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all border cursor-pointer ${
+                      selectedCategory === tab.id
+                        ? 'bg-[#B9626D] text-white border-[#B9626D] shadow-xs'
+                        : 'bg-white text-[#524446] border-[#EADDDD] hover:bg-[#F8E3E5]/60 hover:text-[#9B414C]'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Grid of Affirmations */}
+            {filteredAffirmations.length === 0 ? (
+              <div className="bg-white p-12 rounded-3xl border-2 border-dashed border-[#EADDDD] text-center space-y-3">
+                <Star className="w-10 h-10 text-[#EADDDD] mx-auto" />
+                <p className="text-sm font-bold text-[#1A1112]">
+                  Belum ada afirmasi tersimpan di kategori ini.
+                </p>
+                <p className="text-xs text-[#776B6D]">
+                  Tekan ikon bintang pada kartu untuk menyimpannya ke daftar favorit Anda.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredAffirmations.map((item) => {
+                  const isFav = favorites.includes(item.id);
+                  return (
+                    <div
+                      key={item.id}
+                      className="p-6 sm:p-7 rounded-2xl border transition-all hover:shadow-md flex flex-col justify-between space-y-4"
+                      style={{
+                        backgroundColor: item.bgColor,
+                        borderColor: item.borderColor
+                      }}
+                    >
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <span
+                            className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full"
+                            style={{ backgroundColor: item.accentBg, color: item.textColor }}
+                          >
+                            {item.categoryLabel}
+                          </span>
+
+                          <button
+                            onClick={() => toggleFavorite(item.id)}
+                            className={`p-2 rounded-full transition-colors cursor-pointer ${
+                              isFav ? 'text-[#B9626D]' : 'text-[#A09092] hover:text-[#B9626D]'
+                            }`}
+                            title={isFav ? "Hapus dari favorit" : "Simpan ke favorit"}
+                          >
+                            <Star className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
+                          </button>
+                        </div>
+
+                        <p
+                          className="font-sans text-base sm:text-lg font-extrabold leading-relaxed tracking-wide"
+                          style={{ color: item.textColor }}
+                        >
+                          “{item.quote}”
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-black/5 flex items-center justify-between text-xs">
+                        <span className="text-[#776B6D] font-bold">
+                          {item.author}
+                        </span>
+
+                        <button
+                          onClick={() => handleCopy(item.id, item.quote)}
+                          className="inline-flex items-center gap-1 font-bold text-[#B9626D] hover:underline cursor-pointer"
+                        >
+                          {copiedId === item.id ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-green-600" />
+                              <span className="text-green-600 text-[11px]">Tersalin</span>
+                            </>
+                          ) : (
+                            <>
+                              <Share2 className="w-3.5 h-3.5" />
+                              <span>Bagikan</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
           </div>
         )}
 

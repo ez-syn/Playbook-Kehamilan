@@ -294,12 +294,17 @@ export const TrimesterView: React.FC<TrimesterViewProps> = ({ stageId, onNavigat
                 </div>
               ))}
 
-              {/* Conversation Cards ("Obrolan Saat Kontrol") */}
+              {/* Conversation Cards */}
               {ch.conversationQuestions && ch.conversationQuestions.length > 0 && (
                 <div className="pt-2 space-y-4">
                   <div className="flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-[#9B414C]">
                     <MessageSquare className="w-4 h-4 stroke-[2.5]" />
-                    <span>IDE TOPIK DISKUSI DENGAN DOKTER/BIDAN (BUKAN FORM)</span>
+                    <span>
+                      {ch.conversationTitle || 
+                        (ch.title.toLowerCase().includes('pasangan') || ch.subtitle?.toLowerCase().includes('pasangan') || stageId === 'promil'
+                          ? 'IDE TOPIK DISKUSI BERSAMA PASANGAN (BUKAN FORM)'
+                          : 'IDE TOPIK DISKUSI DENGAN DOKTER/BIDAN (BUKAN FORM)')}
+                    </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -328,53 +333,119 @@ export const TrimesterView: React.FC<TrimesterViewProps> = ({ stageId, onNavigat
         </div>
 
         {/* Bottom Stage Switcher Footer */}
-        <div className="bg-[#FFFFFF] p-6 rounded-3xl border border-[#EADDDD] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <h3 className="font-editorial text-lg font-bold text-[#3D3435]">Lanjutkan ke Panduan Berikutnya</h3>
-            <p className="text-xs text-[#776B6D]">Setiap tahap dapat dibaca secara mandiri tanpa batasan urutan.</p>
+        <div className="bg-[#FFFFFF] p-6 sm:p-7 rounded-3xl border-2 border-[#EADDDD] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-xs">
+          <div className="space-y-1">
+            <h3 className="ad-title text-lg sm:text-xl font-black text-[#1A1112]">Lanjutkan ke Panduan Berikutnya</h3>
+            <p className="text-xs sm:text-sm text-[#776B6D] font-medium">Setiap tahap dapat dibaca secara mandiri tanpa batasan urutan.</p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2.5 w-full sm:w-auto">
+            {stageId === 'promil' && (
+              <>
+                <button
+                  id="promil-back-journey-btn"
+                  onClick={() => {
+                    onNavigate('journey');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs font-bold transition-all hover:bg-[#F8E3E5]/40 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Daftar Tahap</span>
+                </button>
+                <button
+                  id="next-stage-t1-btn"
+                  onClick={() => {
+                    onNavigate('trimester1');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-full bg-[#B9626D] hover:bg-[#9B414C] text-white text-xs sm:text-sm font-extrabold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <span>Buka Trimester 1</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+
             {stageId === 'trimester1' && (
-              <button
-                id="next-stage-t2-btn"
-                onClick={() => {
-                  onNavigate('trimester2');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-5 py-2.5 rounded-full bg-[#5A7555] text-white text-xs font-medium hover:bg-[#485e44] transition-colors flex items-center gap-2"
-              >
-                <span>Buka Trimester 2</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <>
+                <button
+                  id="prev-stage-promil-btn"
+                  onClick={() => {
+                    onNavigate('promil');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs font-bold transition-all hover:bg-[#F8E3E5]/40 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Persiapan Promil</span>
+                </button>
+                <button
+                  id="next-stage-t2-btn"
+                  onClick={() => {
+                    onNavigate('trimester2');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-full bg-[#5A7555] hover:bg-[#485e44] text-white text-xs sm:text-sm font-extrabold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <span>Buka Trimester 2</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </>
             )}
 
             {stageId === 'trimester2' && (
-              <button
-                id="next-stage-t3-btn"
-                onClick={() => {
-                  onNavigate('trimester3');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-5 py-2.5 rounded-full bg-[#A85D3B] text-white text-xs font-medium hover:bg-[#8d4c2f] transition-colors flex items-center gap-2"
-              >
-                <span>Buka Trimester 3</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <>
+                <button
+                  id="prev-stage-t1-btn"
+                  onClick={() => {
+                    onNavigate('trimester1');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs font-bold transition-all hover:bg-[#F8E3E5]/40 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Trimester 1</span>
+                </button>
+                <button
+                  id="next-stage-t3-btn"
+                  onClick={() => {
+                    onNavigate('trimester3');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-full bg-[#A85D3B] hover:bg-[#8d4c2f] text-white text-xs sm:text-sm font-extrabold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <span>Buka Trimester 3</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </>
             )}
 
             {stageId === 'trimester3' && (
-              <button
-                id="next-stage-menjelang-btn"
-                onClick={() => {
-                  onNavigate('menjelang');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-5 py-2.5 rounded-full bg-[#8C633D] text-white text-xs font-medium hover:bg-[#725031] transition-colors flex items-center gap-2"
-              >
-                <span>Buka Menjelang Persalinan</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <>
+                <button
+                  id="prev-stage-t2-btn"
+                  onClick={() => {
+                    onNavigate('trimester2');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs font-bold transition-all hover:bg-[#F8E3E5]/40 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Trimester 2</span>
+                </button>
+                <button
+                  id="next-stage-menjelang-btn"
+                  onClick={() => {
+                    onNavigate('menjelang');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-full bg-[#8C633D] hover:bg-[#725031] text-white text-xs sm:text-sm font-extrabold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <span>Buka Menjelang Persalinan</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </>
             )}
           </div>
         </div>

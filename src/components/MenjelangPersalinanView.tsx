@@ -206,23 +206,36 @@ export const MenjelangPersalinanView: React.FC<MenjelangPersalinanViewProps> = (
         </section>
 
         {/* Bottom Switcher */}
-        <div className="bg-[#FFFFFF] p-6 rounded-3xl border-2 border-[#EADDDD] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="ad-title text-lg font-bold text-[#1A1112]">Lanjut ke Panduan Pasca Melahirkan</h3>
-            <p className="text-xs sm:text-sm text-[#524446] font-bold">Pelajari kesiapan rumah, administrasi bayi, dan ritme baru setelah si kecil lahir.</p>
+        <div className="bg-[#FFFFFF] p-6 sm:p-7 rounded-3xl border-2 border-[#EADDDD] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-xs">
+          <div className="space-y-1">
+            <h3 className="ad-title text-lg sm:text-xl font-black text-[#1A1112]">Lanjut ke Panduan Pasca Melahirkan</h3>
+            <p className="text-xs sm:text-sm text-[#776B6D] font-medium">Pelajari kesiapan rumah, administrasi bayi, dan ritme baru setelah si kecil lahir.</p>
           </div>
 
-          <button
-            id="menjelang-next-menyambut-btn"
-            onClick={() => {
-              onNavigate('menyambut');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="px-6 py-3.5 rounded-full bg-[#9B414C] text-white text-xs sm:text-sm font-extrabold hover:bg-[#82343e] transition-colors flex items-center gap-2 shadow-xs"
-          >
-            <span>MENYAMBUT SI KECIL</span>
-            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-          </button>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2.5 w-full sm:w-auto">
+            <button
+              id="menjelang-prev-t3-btn"
+              onClick={() => {
+                onNavigate('trimester3');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="px-4 py-2.5 rounded-full bg-[#FFF9F6] text-[#776B6D] hover:text-[#1A1112] border-2 border-[#EADDDD] text-xs font-bold transition-all hover:bg-[#F8E3E5]/40 flex items-center gap-1.5 cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Trimester 3</span>
+            </button>
+            <button
+              id="menjelang-next-menyambut-btn"
+              onClick={() => {
+                onNavigate('menyambut');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="px-6 py-2.5 rounded-full bg-[#9B414C] hover:bg-[#82343e] text-white text-xs sm:text-sm font-extrabold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+            >
+              <span>Buka Menyambut Si Kecil</span>
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
+          </div>
         </div>
 
       </div>

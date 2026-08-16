@@ -33,7 +33,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activePage, onNavigate }) 
     },
     {
       id: 'affirmation' as PageView,
-      label: 'Afirmasi',
+      label: 'Afirmasi & Obrolan',
       icon: <Sparkles className="w-5 h-5" />,
       isActive: activePage === 'affirmation'
     },
