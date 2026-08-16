@@ -41,7 +41,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
       <header className="pt-6 px-4 text-center z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F8E3E5] text-[#9B414C] text-xs font-black uppercase tracking-wider border border-[#EADDDD]">
           <BabyFaceIcon className="w-4 h-4 text-[#9B414C]" />
-          <span>Playbook Teman Persiapan Kehamilan by ezplan</span>
+          <span>Playbook Teman Kehamilan by ezplan</span>
         </div>
       </header>
 
@@ -163,7 +163,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
 
       {/* Footer */}
       <footer className="py-4 text-center text-xs text-[#776B6D] font-medium z-10">
-        <p>© 2026 EZplan — Teman Persiapan Kehamilan. All Rights Reserved.</p>
+        <p>© 2026 EZplan — Teman Kehamilan. All Rights Reserved.</p>
       </footer>
 
     </div>

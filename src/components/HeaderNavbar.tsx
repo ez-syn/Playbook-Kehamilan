@@ -63,7 +63,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
       {/* Top Bar Disclaimer Banner */}
       <div className="bg-[#F8E3E5]/80 border-b border-[#EADDDD] py-1 px-4 text-center text-[11px] sm:text-xs text-[#524446] font-extrabold flex items-center justify-center gap-2 truncate">
         <BabyFaceIcon className="w-4 h-4 text-[#9B414C] shrink-0" />
-        <span className="truncate">Playbook Teman Persiapan Kehamilan untuk Calon Orang Tua</span>
+        <span className="truncate">Playbook Teman Kehamilan untuk Calon Orang Tua</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,7 +83,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({ activePage, onNaviga
                 Playbook by EZPlan
               </span>
               <h1 className="ad-title text-sm sm:text-lg lg:text-base xl:text-lg 2xl:text-xl font-black text-[#1A1112] tracking-tight leading-tight">
-                Teman Persiapan Kehamilan
+                Teman Kehamilan
               </h1>
             </div>
           </button>

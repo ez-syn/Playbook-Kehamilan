@@ -45,7 +45,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               </span>
             </div>
             <h1 className="ad-title text-3xl sm:text-4xl font-black text-[#1A1112]">
-              Teman Persiapan Kehamilan
+              Teman Kehamilan
             </h1>
           </div>
 
@@ -72,7 +72,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
           <div className="space-y-4 text-sm text-[#3D3435] leading-relaxed">
             <p>
-              EZPlan Panduan Persiapan Kehamilan dibuat sebagai materi perencanaan dan edukasi umum untuk membantu calon orang tua mempersiapkan perjalanan kehamilan, persalinan, dan kedatangan bayi.
+              EZPlan Panduan Kehamilan dibuat sebagai materi perencanaan dan edukasi umum untuk membantu calon orang tua mempersiapkan perjalanan kehamilan, persalinan, dan kedatangan bayi.
             </p>
 
             <div className="bg-[#F8E3E5]/60 p-4 rounded-2xl border border-[#EADDDD] text-xs font-semibold text-[#B9626D]">

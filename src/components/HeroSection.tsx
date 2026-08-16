@@ -141,7 +141,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
                         PLAYBOOK BY EZPLAN
                       </span>
                     </div>
-                    <h3 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">Teman Persiapan Kehamilan</h3>
+                    <h3 className="ad-title text-xl sm:text-2xl font-black text-[#1A1112]">Teman Kehamilan</h3>
                     <p className="text-xs text-[#524446] font-extrabold italic mt-1">“Mempersiapkan hari bahagia dengan tenang dan terorganisir.”</p>
                   </div>
                 </div>

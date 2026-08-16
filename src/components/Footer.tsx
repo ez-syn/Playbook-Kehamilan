@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   </span>
                 </div>
                 <h3 className="ad-title text-xl font-black tracking-tight text-[#1A1112]">
-                  Teman Persiapan Kehamilan
+                  Teman Kehamilan
                 </h3>
               </div>
             </div>
@@ -161,7 +161,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Copyright */}
         <div className="pt-6 border-t border-[#EADDDD] flex flex-col sm:flex-row items-center justify-between text-xs text-[#524446] font-semibold gap-2">
-          <span>© {new Date().getFullYear()} Playbook Teman Persiapan Kehamilan by ezplan.</span>
+          <span>© {new Date().getFullYear()} Playbook Teman Kehamilan by ezplan.</span>
           <span className="flex items-center gap-1">
             Dibuat untuk kenyamanan calon orang tua <Heart className="w-3.5 h-3.5 text-[#B9626D] fill-[#F8E3E5]" />
           </span>
